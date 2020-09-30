@@ -1,0 +1,87 @@
+<html>
+<body>
+<div class="product-hero">
+
+        <div class="hero-container">
+          <img class="product-hero-image left" src="http://placehold.it/708x1282/000000?text=%3C%E2%80%93+left" alt="" />
+          <img class="product-hero-image middle" src="http://placehold.it/708x1282/000000?text=middle" alt="" />
+          <img class="product-hero-image right" src="http://placehold.it/708x1282/000000?text=right+--%3E" alt="" />
+
+        </div>
+      </div>
+
+</body>
+<script>
+$(".product-hero").mousemove(getMousePosition);
+
+    function getMousePosition(event) {
+      let elementVisible = $('.product-hero-image:visible');
+      let imageTop = elementVisible.offset().top;
+      let imageLeft = elementVisible.offset().left;
+      let imageBottom = imageTop + elementVisible.height();
+      let imageRight = imageLeft + elementVisible.width();
+
+      var mouseX = event.pageX;
+      var mouseY = event.pageY;
+      
+      if (mouseY < imageTop || mouseY > imageBottom) {
+        return;
+      }
+      console.log(mouseY);
+      elementVisible.hide();
+      
+      if (mouseX > imageLeft && mouseX < imageRight){
+        $('.product-hero-image.middle').show();
+      }
+      else if (mouseX < imageLeft) {
+        $('.product-hero-image.left').show();
+      }
+      else {
+        $('.product-hero-image.right').show();
+      }
+    }
+
+    $('.product-hero-image').css('z-index', '0');
+
+</script>
+</html>
+
+
+<style> 
+.product-hero
+  height 100vh
+  position relative
+
+  .product-hero-image
+    position absolute
+    height 83%
+    margin auto
+    top 3%
+    left 50%
+    transform translateX(-50%)
+    opacity 1
+    display block
+
+    &.active
+      opacity 1
+
+  .title-container
+    max-width $max_width
+    margin 0 auto
+    height 100%
+    position relative
+
+  h1
+    z-index 1000
+    position absolute
+    bottom 30%
+    left $padding
+    width 40%
+    margin 0 auto
+    text-align left
+    font-size 3.6rem
+    text-transform uppercase
+    color $main_text_colour
+    transition transform 2000ms
+    transform translate3d(0,0,0)
+</style>
